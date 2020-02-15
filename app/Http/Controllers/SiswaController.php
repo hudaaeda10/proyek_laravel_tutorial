@@ -7,9 +7,13 @@ use Symfony\Component\CssSelector\XPath\Extension\FunctionExtension;
 
 class SiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data_siswa = \App\Siswa::all();
+        if ($request->has('cari')) {
+            $data_siswa = \App\Siswa::where('nama_depan', 'LIKE', '%' . $request->cari . '%')->get();
+        } else {
+            $data_siswa = \App\Siswa::all();
+        }
         return view('siswa.index', ['data_siswa' => $data_siswa]);
     }
 
@@ -30,5 +34,12 @@ class SiswaController extends Controller
         $siswa = \App\Siswa::find($id);
         $siswa->update($request->all());
         return redirect('/siswa')->with('sukses', 'Data Update Berhasil');
+    }
+
+    public function delete($id)
+    {
+        $siswa = \App\Siswa::find($id);
+        $siswa->delete();
+        return redirect('/siswa')->with('sukses', 'Data berhasil dihapus');
     }
 }
