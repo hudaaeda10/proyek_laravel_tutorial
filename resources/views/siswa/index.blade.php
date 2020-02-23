@@ -69,7 +69,6 @@
                             @endif
                         </div>
 
-
                         <div class="form-group {{$errors->has('nama_belakang') ? ' has-error ' : ''}}">
                             <label for="exampleInputEmail1">Nama Belakang</label>
                             <input name="nama_belakang" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('nama_belakang')}}">
