@@ -101,4 +101,11 @@ class SiswaController extends Controller
         $siswa->mapel()->attach($request->mapel, ['nilai' => $request->nilai]);
         return redirect('siswa/' . $idsiswa . '/profile')->with('sukses', 'Nilai Berhasil dimasukkan');
     }
+
+    public function deletenilai($idsiswa, $idmapel)
+    {
+        $siswa = \App\Siswa::find($idsiswa);
+        $siswa->mapel()->detach($idmapel);
+        return redirect()->back()->with('sukses', 'Data Nilai Sudah Di Hapus');
+    }
 }
