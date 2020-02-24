@@ -92,6 +92,9 @@
                                 </table>
                             </div>
                         </div>
+                                <div class="panel">
+                                    <div id="chartNilai"></div>
+                                </div>
                         <!-- END TABBED CONTENT -->
                     </div>
                     <!-- END RIGHT COLUMN -->
@@ -140,3 +143,44 @@
     </div>
 </div>
 @stop
+{{-- Untuk memasang chart --}}
+@section('footer')
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    Highcharts.chart('chartNilai', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Chart Nilai'
+    },
+    xAxis: {
+        categories: {!! json_encode($categories) !!},
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Nilai'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Nilai',
+        data: {!!json_encode($data)!!}
+    }]
+});
+</script>
+@stop
+    
