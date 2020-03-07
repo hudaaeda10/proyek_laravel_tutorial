@@ -21,4 +21,16 @@ class Siswa extends Model
     {
         return $this->belongsToMany(Mapel::class)->withPivot(['nilai']);
     }
+
+    public function rataRataNilai()
+    {
+        //Mengambil data nilai2
+        $total = 0;
+        $hitung = 0;
+        foreach ($this->mapel as $mapel) {
+            $total = $total + $mapel->pivot->nilai;
+            $hitung++;
+        }
+        return round($total / $hitung);
+    }
 }
