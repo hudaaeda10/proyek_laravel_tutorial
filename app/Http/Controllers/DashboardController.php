@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Siswa;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.index');
+        $siswa = Siswa::all();
+        $siswa->map(function ($s) {
+            $s->rataRataNilai = $s->rataRataNilai();
+        });
+        $siswa = $siswa->sortByDesc('rataRataNilai')->take(5);
+        return view('dashboard.index', ['siswa' => $siswa]);
     }
 }
