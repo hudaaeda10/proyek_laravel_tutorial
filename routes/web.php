@@ -13,9 +13,8 @@
 
 use App\Http\Controllers\SiswaController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'SiteController@home');
+Route::get('/about', 'SiteController@about');
 
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
