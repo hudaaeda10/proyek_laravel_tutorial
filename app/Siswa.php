@@ -27,11 +27,13 @@ class Siswa extends Model
         //Mengambil data nilai2
         $total = 0;
         $hitung = 0;
-        foreach ($this->mapel as $mapel) {
-            $total = $total + $mapel->pivot->nilai;
-            $hitung++;
+        if($this->mapel->isNotEmpty()){
+            foreach ($this->mapel as $mapel) {
+                $total = $total + $mapel->pivot->nilai;
+                $hitung++;
+            }
+            return round($total / $hitung);
         }
-        return round($total / $hitung);
     }
 
     public function nama_lengkap()

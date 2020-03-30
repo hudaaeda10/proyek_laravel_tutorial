@@ -15,4 +15,27 @@ class SiteController extends Controller
     {
         return view('sites.about');
     }
+
+    public function register()
+    {
+        return view('sites.register');
+    }
+
+    public function postregister(Request $request)
+    {
+        // Insert table user
+        $user = new \App\User;
+        $user->role = 'siswa';
+        $user->name = $request->nama_depan;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->remember_token = str_random(60);
+        $user->save();
+
+         // Insert table siswa
+        $request->request->add(['user_id' => $user->id]);
+        $siswa = \App\Siswa::create($request->all());
+
+        return redirect('/')->with('sukses', 'Data Pendaftaran Berhasil Dikirim');
+    }
 }
